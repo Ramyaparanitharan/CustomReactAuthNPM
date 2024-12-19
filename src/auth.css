@@ -1,0 +1,185 @@
+#root {
+  width: 100%;
+  margin: 0 100px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.signup-section {
+    padding: 20px;
+    width: 100%;
+}
+
+.d-flex {
+  display: flex;
+  width: 100%;
+} 
+
+.form-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.signup-section.no-welcome {
+  justify-content: center;
+  display: flex;
+  margin: auto;
+  align-items: center;
+}
+
+.signup-heading {
+    font-size: 16px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+label {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #888;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+input:focus + label,
+input:not(:placeholder-shown) + label {
+  top: -8px;
+  font-size: 12px;
+  color: #007BFF;
+}
+
+/* Focused input styling */
+input:focus {
+  border-color: #007BFF;
+}
+
+input {
+  width: 100%;
+  padding: 12px 10px 12px 10px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  border-radius: 8px;
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: transparent;
+}
+
+.custom-checkbox {
+  width: 6%;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 25%;
+}
+
+.agreeterm {
+  font-size: 16px;
+  margin-left: 10px;
+  width: 100%;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.remember-me {
+  margin: 0;
+  width: 50%;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.password-container input {
+  width: 100%; 
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc; 
+}
+
+.form-group {
+  margin-bottom: 20px;
+  position: relative; 
+}
+
+button.eye-icon {
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.w-40 {
+  width: 40%;
+  margin: auto;
+  text-align: right;
+}
+
+.w-60 {
+  width: 60%;
+}
+
+  button:focus, button:focus-visible {
+      outline: none;
+  }
+
+  .mb-0 {
+      margin-bottom: 0px;
+  }
+
+  .m-auto {
+      margin: auto;
+  }
+
+  .signup-section.signup-welcome.show-welcome {
+    width: 50%;
+  }
+
+  .justify-between {
+    justify-content: space-between;
+  }
+  
+  .remember-checkbox {
+    width: 10%;
+    margin-right: 5px;
+  }
+  
+  @media(max-width:767px) {
+    #root {
+      margin: 0px;
+    }
+    .md-signup-block {
+      display: block;
+    }
+  }
+  
+  @media(min-width:768px) and (max-width:1024px) {
+    #root {
+      margin: 0px;
+    }
+  }
