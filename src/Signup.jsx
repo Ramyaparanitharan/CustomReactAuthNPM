@@ -1,19 +1,62 @@
 import './auth.css';
-import  React, { useState } from 'react';
-
+import React, { useState } from 'react';
+import Notification from './common/Notification';
 const Signup = (
   { showWelcome,
-    signupimg, signupmessage, signupinformation,
-    handleSignupChange, handleSignupSubmit, buttonStyles, signupFormData, 
-    visibilityOn, visibilityOff
+    signupimg, signupmessage, signupinformation, buttonStyles, signupFormData,
+    visibilityOn, visibilityOff, signupapiurl
   }
 ) => {
-  const [showPassword, setShowPassword] = useState(false); 
+  const initialSignupData = {
+    firstname: '',
+    lastname: '',
+    email: '',
+    password: '',
+    phone: '',
+    agreeTerms: false,
+  }
+
+  const [signupFormData, setSignupFormData] = useState(initialSignupData);
+  const [showPassword, setShowPassword] = useState(false);
+
   const togglePasswordVisibilty = () => {
-    setShowPassword(!showPassword);  
+    setShowPassword(!showPassword);
   };
 
-  const passwordRegex = /^(?=[a-zA-Z])[A-Za-z\d@$!%*?&]{8,}$/; 
+  const passwordRegex = /^(?=[a-zA-Z])[A-Za-z\d@$!%*?&]{8,}$/;
+
+  const handleSignupChange = (e) => {
+    const { name, value } = e.target;
+    setSignupFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  }
+
+  const handleSignupSubmit = async (e) => {
+    e.preventDefault();
+    const payload = {
+      ...signupFormData,
+    }
+    try {
+      const response = await fetch(signupapiurl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        alert("Signup successful! Email has been sent.");
+      } else {
+        alert(`Signup failed: ${result.message}`);
+      }
+    } catch (error) {
+      console.error("Signup Error:", error);
+      alert("Something went wrong. Please try again.");
+    }
+    setSignupFormData(initialSignupData);
+  }
 
   return (
     <section className='d-flex md-signup-block'>
@@ -25,7 +68,7 @@ const Signup = (
               <img src={signupimg} alt='handwave' />
               <h1 className='signup-heading'>{signupmessage}</h1>
               <p>{signupinformation}</p>
-            </div> 
+            </div>
           )
         }
       </div>
@@ -82,9 +125,9 @@ const Signup = (
               />
               <label htmlFor='password'>Password</label>
               <button type='button' className='eye-icon' onClick={togglePasswordVisibilty}>
-                {showPassword ? 
-                  <img src={visibilityOn} alt="eyeopen" /> 
-                  : 
+                {showPassword ?
+                  <img src={visibilityOn} alt="eyeopen" />
+                  :
                   <img src={visibilityOff} alt="eyeclose" />
                 }
               </button>
@@ -99,8 +142,9 @@ const Signup = (
               onChange={handleSignupChange}
               placeholder=''
               required
-              pattern="[0-9]+" 
+              pattern="^\+?[0-9\s\-]{8,15}$"
               minLength="8"
+              maxLength="15"
               title="Please enter a valid phone number."
             />
             <label htmlFor="phone">Phone</label>
@@ -123,7 +167,15 @@ const Signup = (
           </div>
         </form>
       </div>
+      {notification && (
+        <Notification
+          notifymessage={notification.message}
+          success={notification.success}
+          error={notification.error}
+        />
+      )}
     </section>
+
   );
 }
 
